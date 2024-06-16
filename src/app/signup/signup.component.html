@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="form-box">
+    <form (ngSubmit)="onSubmit()">
+      <h2>회원가입</h2>
+      <input
+        type="text"
+        placeholder="이름"
+        [(ngModel)]="signup_data.name"
+        name="name"
+        required
+      />
+      <input
+        type="text"
+        placeholder="아이디"
+        [(ngModel)]="signup_data.user_id"
+        name="user_id"
+        required
+      />
+      <input
+        type="password"
+        placeholder="비밀번호"
+        [(ngModel)]="signup_data.password"
+        name="password"
+        required
+      />
+      <button type="submit">회원가입 하기</button>
+      <a routerLink="/login" class="login-link">로그인 화면으로</a>
+    </form>
+  </div>
+</div>
