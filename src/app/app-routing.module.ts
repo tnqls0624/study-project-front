@@ -1,8 +1,8 @@
-import { Routes } from "@angular/router";
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
-import { LobbyComponent } from "./lobby/lobby.component";
 import { AuthGuard } from "./auth/auth.guard";
 
 export const routes: Routes = [
@@ -11,7 +11,13 @@ export const routes: Routes = [
   { path: "login", component: LoginComponent },
   {
     path: "lobby",
-    component: LobbyComponent,
+    loadChildren: () =>
+      import("./lobby/lobby.module").then((m) => m.LobbyModule),
     canActivate: [AuthGuard],
   },
 ];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}

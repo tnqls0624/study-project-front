@@ -1,6 +1,9 @@
 .container {
-  margin-top: 20px;
-  text-align: center;
+  margin: 20px;
+}
+
+.title {
+  margin-bottom: 10px;
 }
 
 .grid-container {
@@ -31,6 +34,7 @@
   font-weight: bold;
 }
 
-.btn {
-  margin-right: 10px;
+.create-btn {
+  margin-top: 20px;
+  float: right;
 }

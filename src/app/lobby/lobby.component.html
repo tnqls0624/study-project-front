@@ -1,12 +1,9 @@
 <div class="container">
-  <h2>채팅방 로비</h2>
-  <button class="btn btn-primary mb-3" (click)="createRoom()">
-    새 채팅방 만들기
-  </button>
+  <h2 class="title">채팅방 로비</h2>
   <div class="grid-container">
     <div
       class="grid-item"
-      *ngFor="let room of chatRooms"
+      *ngFor="let room of chatRooms; let i = index"
       (click)="enterRoom(room.id)"
     >
       <div class="room-content">
@@ -14,4 +11,7 @@
       </div>
     </div>
   </div>
+  <button class="btn btn-primary create-btn" (click)="createRoom()">
+    새 채팅방 만들기
+  </button>
 </div>

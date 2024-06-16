@@ -26,12 +26,10 @@ export class LobbyComponent implements OnInit {
   }
 
   enterRoom(roomId: string): void {
-    // 선택한 채팅방으로 이동
     this.router.navigate(["/chat", roomId]);
   }
 
   createRoom(): void {
-    // 새로운 채팅방 생성 로직 (예시)
     const newRoomId = (this.chatRooms.length + 1).toString();
     const newRoomName = `새 채팅방 ${newRoomId}`;
     this.chatRooms.push({ id: newRoomId, name: newRoomName });
