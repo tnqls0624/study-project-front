@@ -19,7 +19,7 @@ export const routes: Routes = [
   { path: "chat/:room_id", component: ChatComponent },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: "reload" })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -40,17 +40,21 @@ export class ChatComponent implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.chatService.connect();
     this.room_id = this.route.snapshot.params["room_id"];
     await this.loadMessages();
     // const message = this.socketService.getMessage("receive-message");
     // console.log(message);
-    const _id = localStorage.getItem("_id");
-    console.log(_id);
+    const _id = localStorage.getItem("_id") as string;
+
+    this.chatService.join(this.room_id, _id);
+
     this.chatService.sendMessage("connecting", { _id });
     // 소켓 연결 설정 및 메시지 수신
     this.socketSubscription = this.chatService
       .onMessage("receive-message")
       .subscribe((message: any) => {
+        console.log("receive:", message);
         switch (message.type) {
           case Action.CONNECT: {
             console.log(message);
@@ -58,10 +62,17 @@ export class ChatComponent implements OnInit, OnDestroy {
           }
 
           case Action.SEND_MESSAGE: {
+            this.messages.push({
+              id: message._id,
+              content: message.content,
+              name: message.name,
+              user_id: message.user,
+            });
             break;
           }
 
           case Action.JOIN: {
+            console.log("조인!");
             break;
           }
 
@@ -112,13 +123,15 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   async sendMessage(): Promise<void> {
     if (this.new_message.trim()) {
+      const name = localStorage.getItem("name");
       const messageData = {
         content: this.new_message,
-        user_id: this.current_user_id,
-        room_id: this.room_id,
+        user: this.current_user_id,
+        room: this.room_id,
+        name,
       };
 
-      this.chatService.sendMessage("send_message", messageData);
+      this.chatService.sendMessage("send-message", messageData);
 
       this.new_message = "";
     } else {

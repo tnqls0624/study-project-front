@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { DialogComponent } from "../dialog/dialog.component";
 import axios from "axios";
+import { ChatService } from "../chat/chat.service";
 
 @Component({
   selector: "app-lobby",
@@ -14,10 +15,17 @@ export class LobbyComponent implements OnInit {
   new_room = {
     name: "",
   };
-  constructor(private router: Router, public dialog: MatDialog) {}
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
+    private chatService: ChatService
+  ) {}
 
   ngOnInit(): void {
-    this.loadChatRooms();
+    this.chatService.disConnect();
+    setTimeout(() => {
+      this.loadChatRooms();
+    }, 500);
   }
 
   async loadChatRooms(): Promise<void> {

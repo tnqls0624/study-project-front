@@ -15,6 +15,18 @@ export class ChatService {
     });
   }
 
+  disConnect(): void {
+    this.socket.disconnect();
+  }
+
+  connect(): void {
+    this.socket.connect();
+  }
+
+  join(room_id: string, user_id: string): void {
+    this.socket.emit("join-room", { room: room_id, user: user_id });
+  }
+
   // 연결된 소켓 인스턴스를 반환
   getSocket(): Socket {
     return this.socket;
