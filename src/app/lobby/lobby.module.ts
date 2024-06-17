@@ -4,7 +4,6 @@ import { RouterModule } from "@angular/router";
 import { LobbyComponent } from "./lobby.component";
 
 @NgModule({
-  declarations: [LobbyComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -14,5 +13,6 @@ import { LobbyComponent } from "./lobby.component";
       },
     ]),
   ],
+  declarations: [LobbyComponent],
 })
 export class LobbyModule {}

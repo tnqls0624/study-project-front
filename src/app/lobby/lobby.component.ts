@@ -1,5 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
+import { DialogComponent } from "../dialog/dialog.component";
+import axios from "axios";
 
 @Component({
   selector: "app-lobby",
@@ -7,31 +10,37 @@ import { Router } from "@angular/router";
   styleUrls: ["./lobby.component.css"],
 })
 export class LobbyComponent implements OnInit {
-  chatRooms: Array<{ id: string; name: string }> = [];
-
-  constructor(private router: Router) {}
+  chat_rooms: Array<{ id: string; name: string }> = [];
+  new_room = {
+    name: "",
+  };
+  constructor(private router: Router, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadChatRooms();
   }
 
-  loadChatRooms(): void {
-    // 예시로 하드코딩된 데이터 사용
-    this.chatRooms = [
-      { id: "1", name: "일반 채팅방" },
-      { id: "2", name: "프로그래밍 채팅방" },
-      { id: "3", name: "게임 채팅방" },
-    ];
-    console.log(this.chatRooms);
+  async loadChatRooms(): Promise<void> {
+    try {
+      const res = await axios.get("http://localhost:3000/room/find-all");
+      const rooms: any[] = res.data.data;
+
+      this.chat_rooms = rooms.map((room, idx) => {
+        return {
+          id: room._id,
+          name: room.title,
+        };
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  enterRoom(roomId: string): void {
-    this.router.navigate(["/chat", roomId]);
+  enterRoom(room_id: string): void {
+    this.router.navigate(["/chat", room_id]);
   }
 
-  createRoom(): void {
-    const newRoomId = (this.chatRooms.length + 1).toString();
-    const newRoomName = `새 채팅방 ${newRoomId}`;
-    this.chatRooms.push({ id: newRoomId, name: newRoomName });
+  openDialog() {
+    this.dialog.open(DialogComponent);
   }
 }

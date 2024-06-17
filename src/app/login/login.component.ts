@@ -21,11 +21,23 @@ export class LoginComponent {
     password: "",
   };
 
+  ngOnInit() {
+    if (this.authService.getToken()) {
+      this.router.navigate(["/lobby"]);
+    }
+  }
+
   async onSubmit() {
     try {
       const res = await this.authService.login(this.login_data);
-      console.log(res);
       this.authService.saveToken(res.data.data);
+      const info = await axios.get("http://localhost:3000/user/find-info", {
+        headers: {
+          Authorization: `Bearer ${res.data.data}`,
+        },
+      });
+      localStorage.setItem("_id", info.data.data._id);
+      localStorage.setItem("name", info.data.data.name);
       alert("로그인에 성공하셨습니다!");
       this.router.navigate(["/lobby"]);
     } catch (e) {

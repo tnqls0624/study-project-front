@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>채팅방 개설</h1>
+<div mat-dialog-content>
+  <form (ngSubmit)="createRoom()">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="채팅방 이름"
+        [(ngModel)]="title"
+        name="title"
+        required
+      />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">취소</button>
+  <button mat-button (click)="createRoom()">생성</button>
+</div>

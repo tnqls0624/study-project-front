@@ -1,0 +1,39 @@
+<div class="chat-container">
+  <div class="room-title">
+    <p>Angular 채팅방</p>
+  </div>
+  <div class="messages">
+    <div *ngFor="let message of messages">
+      <div class="left-wrap">
+        <div
+          *ngIf="message.user_id !== current_user_id"
+          class="message-wrap left"
+        >
+          <div class="message left">
+            <div class="sender">{{ message.name }}</div>
+            <div class="text">{{ message.content }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="right-wrap">
+        <div
+          *ngIf="message.user_id === current_user_id"
+          class="message-wrap right"
+        >
+          <div class="message right">
+            <div class="sender">{{ message.name }}</div>
+            <div class="text">{{ message.content }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="input-container">
+    <textarea
+      class="message-input"
+      placeholder="메시지를 입력하세요..."
+      [(ngModel)]="new_message"
+    ></textarea>
+    <button class="send-button" (click)="sendMessage()">전송</button>
+  </div>
+</div>

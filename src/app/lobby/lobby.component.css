@@ -1,4 +1,6 @@
 .container {
+  width: 1200px;
+  height: 1000px;
   margin: 20px;
 }
 
@@ -7,19 +9,21 @@
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .grid-item {
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 250px;
+  height: 200px;
+  margin: 10px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s;
 }
@@ -35,6 +39,26 @@
 }
 
 .create-btn {
+  position: absolute;
+  right: 100px;
+  top: 150px;
   margin-top: 20px;
-  float: right;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.create-btn:hover {
+  background-color: #0056b3;
+}
+
+.create-btn:active {
+  transform: scale(0.98);
 }
