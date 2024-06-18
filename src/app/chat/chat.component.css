@@ -106,3 +106,10 @@
 .message-box {
   width: 100%;
 }
+
+.system-message {
+  text-align: center;
+  color: gray;
+  font-style: italic;
+  margin: 10px 0;
+}

@@ -27,18 +27,23 @@ export class ChatService {
     this.socket.emit("join-room", { room: room_id, user: user_id });
   }
 
-  // 연결된 소켓 인스턴스를 반환
+  leave(event_name: string, data: any) {
+    this.socket.emit(event_name, data);
+  }
+
   getSocket(): Socket {
     return this.socket;
   }
 
-  // 메시지 수신
-  onMessage(eventName: string): Observable<any> {
-    return fromEvent(this.socket, eventName);
+  onMessage(event_name: string): Observable<any> {
+    return fromEvent(this.socket, event_name);
   }
 
-  // 메시지 전송
-  sendMessage(eventName: string, data: any): void {
-    this.socket.emit(eventName, data);
+  sendMessage(event_name: string, data: any): void {
+    this.socket.emit(event_name, data);
+  }
+
+  refreshRoom(): void {
+    this.socket.emit("refresh-message");
   }
 }

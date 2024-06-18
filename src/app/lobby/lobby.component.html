@@ -4,14 +4,20 @@
     <div
       class="grid-item"
       *ngFor="let room of chat_rooms; let i = index"
-      (click)="enterRoom(room.id)"
+      (click)="enterRoom(room.id, room.title)"
     >
       <div class="room-content">
-        {{ room.name }}
+        {{ room.title }}
+      </div>
+      <div class="room-master">
+        {{ room.master }}
       </div>
     </div>
   </div>
   <button class="btn btn-primary create-btn" mat-button (click)="openDialog()">
     새 채팅방 만들기
+  </button>
+  <button class="btn btn-primary logout-btn" (click)="logout()">
+    로그아웃
   </button>
 </div>

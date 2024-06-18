@@ -6,6 +6,7 @@ import { MatInputModule } from "@angular/material/input";
 import axios from "axios";
 import { AuthService } from "../auth/auth.service";
 import { Router } from "@angular/router";
+import { ChatService } from "../chat/chat.service";
 
 @Component({
   selector: "app-dialog",
@@ -18,7 +19,8 @@ export class DialogComponent {
   constructor(
     private readonly router: Router,
     public dialogRef: MatDialogRef<DialogComponent>,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private chatService: ChatService
   ) {}
 
   @Input()
@@ -42,8 +44,14 @@ export class DialogComponent {
             },
           }
         );
+
         this.dialogRef.close(this.title);
-        this.router.navigate(["chat", res.data.data._id]);
+        this.chatService.refreshRoom();
+        this.router.navigate([
+          "chat",
+          res.data.data._id,
+          { title: this.title },
+        ]);
       } catch (e) {
         alert("채팅방 개설에 실패하였습니다.");
       }

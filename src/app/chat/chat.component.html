@@ -1,31 +1,38 @@
 <div class="chat-container">
   <div class="room-title">
-    <p>Angular 채팅방</p>
+    <p>{{ title }}</p>
   </div>
   <div class="messages">
     <div *ngFor="let message of messages">
-      <div class="left-wrap">
-        <div
-          *ngIf="message.user_id !== current_user_id"
-          class="message-wrap left"
-        >
-          <div class="message left">
-            <div class="sender">{{ message.name }}</div>
-            <div class="text">{{ message.content }}</div>
+      <ng-container *ngIf="message.id === 'system'; else userMessage">
+        <div class="system-message">
+          {{ message.content }}
+        </div>
+      </ng-container>
+      <ng-template #userMessage>
+        <div class="left-wrap">
+          <div
+            *ngIf="message.user_id !== current_user_id"
+            class="message-wrap left"
+          >
+            <div class="message left">
+              <div class="sender">{{ message.name }}</div>
+              <div class="text">{{ message.content }}</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="right-wrap">
-        <div
-          *ngIf="message.user_id === current_user_id"
-          class="message-wrap right"
-        >
-          <div class="message right">
-            <div class="sender">{{ message.name }}</div>
-            <div class="text">{{ message.content }}</div>
+        <div class="right-wrap">
+          <div
+            *ngIf="message.user_id === current_user_id"
+            class="message-wrap right"
+          >
+            <div class="message right">
+              <div class="sender">{{ message.name }}</div>
+              <div class="text">{{ message.content }}</div>
+            </div>
           </div>
         </div>
-      </div>
+      </ng-template>
     </div>
   </div>
   <div class="input-container">

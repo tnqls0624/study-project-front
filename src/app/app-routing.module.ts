@@ -16,10 +16,10 @@ export const routes: Routes = [
       import("./lobby/lobby.module").then((m) => m.LobbyModule),
     canActivate: [AuthGuard],
   },
-  { path: "chat/:room_id", component: ChatComponent },
+  { path: "chat/:room_id", component: ChatComponent, canActivate: [AuthGuard] },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: "reload" })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
